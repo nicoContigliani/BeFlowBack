@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 
- const pay = require('../pay/payController');
+const pay = require('../pay/payController');
 
 //  router.get('/', pay.get);
- router.get('/payments', pay.get);
+router.get('/payments', pay.get);
 
-
+ router.post('/payments', pay.save);
 
 // // router.get('/:id', posts.get);
 // router.post('/', posts.save);
@@ -20,7 +20,7 @@ const router = express.Router();
 
 
 /* GET bugdes listing. */
-// router.get('/', function (req, res, next) {
+// router.post('/payments', function (req, res, next) {
 //     res.send('llego!!!');
 // });
 

@@ -5,7 +5,7 @@ const pay = require('../apiservices/pay/payRoutes')
 
 
 /* GET home page. */
-router.get('/payments', pay);
+router.all('/payments', pay);
 // router.get('/payments', function (req, res, next) {
 //     res.send('live!!!');
 // });
