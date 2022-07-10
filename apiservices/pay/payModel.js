@@ -18,8 +18,10 @@ const getPay = async () => {
 
 
 
-// const savePost = async (resource) => {
-//   const posts = await postsDao.savePost(resource)
+const savePay = async (resource) => {
+  console.log(resource,"mira como vas")
+
+  const pay = await payDao.savePay(resource)
 //   return posts
 // }
 // const deletePost = async (id_budget) => {
@@ -29,10 +31,11 @@ const getPay = async () => {
 // const updateBudget = async (everything) => {
 //   const budget = await postsDao.updatePost(everything)
 //   return budget
-// }
+}
 
 
 
 module.exports = {
-  getPay
+  getPay,
+  savePay
 }
