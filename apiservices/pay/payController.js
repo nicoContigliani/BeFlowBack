@@ -122,9 +122,25 @@ const save = async (req, res) => {
 }
 
 
+const deletes = async (req, res) => {
+    const id = parseInt(req.params.id);
 
+    try {
+        const dataPay = await payModel.deletePay(id);
+            res.status(200).json(
+                {"message": "payment sucessfully deleted"}
+            );
+
+
+    } catch (error) {
+        console.log(error)
+
+    }
+
+}
 module.exports = {
     get,
-    save
+    save,
+    deletes
     // getIdPay
 }

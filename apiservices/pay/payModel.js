@@ -33,9 +33,14 @@ const savePay = async (resource) => {
 //   return budget
 }
 
+const deletePay = async (resource) => {
 
+  const pay = await payDao.deletePay(resource)
+
+}
 
 module.exports = {
   getPay,
-  savePay
+  savePay,
+  deletePay
 }

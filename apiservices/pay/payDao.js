@@ -75,6 +75,16 @@ const savePay = async (resource) => {
     //     }
 }
 
+const deletePay = async (data) => {
+
+    try {
+        const response = await pool.query(`DELETE FROM public.paymentsWHERE id = "${data}"`);
+        post = response.rows
+        return post
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 
@@ -82,6 +92,7 @@ const savePay = async (resource) => {
 module.exports = {
     getPayAll,
     getIdPay,
-    savePay
+    savePay,
+    deletePay
 
 }

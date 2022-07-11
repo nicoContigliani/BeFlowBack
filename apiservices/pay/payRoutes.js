@@ -6,8 +6,8 @@ const pay = require('../pay/payController');
 
 //  router.get('/', pay.get);
 router.get('/payments', pay.get);
-
- router.post('/payments', pay.save);
+router.post('/payments', pay.save);
+router.delete('/payments/:id', pay.deletes);
 
 // // router.get('/:id', posts.get);
 // router.post('/', posts.save);
@@ -20,7 +20,7 @@ router.get('/payments', pay.get);
 
 
 /* GET bugdes listing. */
-// router.post('/payments', function (req, res, next) {
+// router.delete('/payments/:id', function (req, res, next) {
 //     res.send('llego!!!');
 // });
 
