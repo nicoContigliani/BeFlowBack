@@ -30,27 +30,28 @@ const get = async (req, res) => {
 
 }
 
-// const getIdPay = async (req, res) => {
-//     try {
-//         // const postsdata = await payModel.getPay();
-//        // const postRow = await postDto.singles(postsdata)
-//        res.status(200).json(
-//            {
-//                // data: postRow,
-//                status: 200
-//            }
-//        );
-//    } catch (error) {
-//        console.log(error)
-//        res.status(404).json(
-//            {
-//                data: 0,
-//                status: 404
-//            }
-//        );
-//    }
+const getID = async (req, res) => {
+    console.log(req.params.id)
+    try {
+        // const postsdata = await payModel.getPay();
+       // const postRow = await postDto.singles(postsdata)
+       res.status(200).json(
+           {
+               // data: postRow,
+               status: 200
+           }
+       );
+   } catch (error) {
+       console.log(error)
+       res.status(404).json(
+           {
+               data: 0,
+               status: 404
+           }
+       );
+   }
 
-// }
+}
 
 const save = async (req, res) => {
 
@@ -141,6 +142,6 @@ const deletes = async (req, res) => {
 module.exports = {
     get,
     save,
-    deletes
-    // getIdPay
+    deletes,
+    getID
 }
