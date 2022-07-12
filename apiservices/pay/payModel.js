@@ -3,12 +3,9 @@
 
 
 
-const getPay = async () => {
-  const payGet = await payDao.getPayAll()
-  console.log(payGet)
-
-  const payget = "hola"
-  return payget
+const getPay = async (data) => {
+  const payGet = await payDao.getPayAll(data)
+  return payGet
 }
 
 // const getIdPost = async (id_user) => {

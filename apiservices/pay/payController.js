@@ -8,16 +8,32 @@ const helperAxiosGet = require('../../helper/helperAxios');
 
 
 
-const get = async (req, res) => {
+const getPage = async (req, res) => {
+    console.log(req.body, "esta en el select 12")
     try {
-        const postsdata = await payModel.getPay();
+
+        const dataPay = await payModel.getPay(req.body);
+
+
         // const postRow = await postDto.singles(postsdata)
-        res.status(200).json(
+
+
+        if (Object.keys(dataPay).length === 0) {
+           res.status(200).json(
+            {
+                // data: postRow,
+                status: 400
+            }
+        );
+        } else {
+            res.status(200).json(
             {
                 // data: postRow,
                 status: 200
             }
         );
+        }
+
     } catch (error) {
         console.log(error)
         res.status(404).json(
@@ -34,22 +50,22 @@ const getID = async (req, res) => {
     console.log(req.params.id)
     try {
         // const postsdata = await payModel.getPay();
-       // const postRow = await postDto.singles(postsdata)
-       res.status(200).json(
-           {
-               // data: postRow,
-               status: 200
-           }
-       );
-   } catch (error) {
-       console.log(error)
-       res.status(404).json(
-           {
-               data: 0,
-               status: 404
-           }
-       );
-   }
+        // const postRow = await postDto.singles(postsdata)
+        res.status(200).json(
+            {
+                // data: postRow,
+                status: 200
+            }
+        );
+    } catch (error) {
+        console.log(error)
+        res.status(404).json(
+            {
+                data: 0,
+                status: 404
+            }
+        );
+    }
 
 }
 
@@ -128,9 +144,9 @@ const deletes = async (req, res) => {
 
     try {
         const dataPay = await payModel.deletePay(id);
-            res.status(200).json(
-                {"message": "payment sucessfully deleted"}
-            );
+        res.status(200).json(
+            { "message": "payment sucessfully deleted" }
+        );
 
 
     } catch (error) {
@@ -140,7 +156,7 @@ const deletes = async (req, res) => {
 
 }
 module.exports = {
-    get,
+    getPage,
     save,
     deletes,
     getID

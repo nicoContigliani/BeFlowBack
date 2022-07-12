@@ -1,12 +1,21 @@
 const pool = require('../../config/database');
 const uuid = require('uuid').v4
 
-const getPayAll = async () => {
-
+const getPayAll = async (page) => {
     try {
-        const response = await pool.query('SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange ;');
-        post = response.rows
-        return post
+        let response;
+
+        if (page == 1) {
+            console.log("no es cero")
+            const response = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange limit 100 offset 0;`);
+            data = response.rows
+            return data
+        } else {
+            console.log("cero")
+            const response = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange limit 100 offset 100;`);
+            data = response.rows
+            return data
+        }
     } catch (error) {
         console.log(error)
     }
