@@ -2,36 +2,33 @@ const payModel = require('./payModel')
 const axios = require('axios');
 const { response } = require('../../app');
 const helperAxiosGet = require('../../helper/helperAxios');
-// const postDto = require('./postsDto')
+const paytDto = require('./../pay/payDto')
 
 
 
 
 
 const getPage = async (req, res) => {
-    console.log(req.body, "esta en el select 12")
     try {
-
         const dataPay = await payModel.getPay(req.body);
-
-
-        // const postRow = await postDto.singles(postsdata)
-
+        const payRow = await paytDto.estructure(dataPay)
 
         if (Object.keys(dataPay).length === 0) {
-           res.status(200).json(
-            {
-                // data: postRow,
-                status: 400
-            }
-        );
+            res.status(200).json(
+                {
+                    // data: postRow,
+                    status: 400
+                }
+            );
         } else {
             res.status(200).json(
-            {
-                // data: postRow,
-                status: 200
-            }
-        );
+                [{
+                    payRow,
+                    status: 200
+
+                } ]
+
+            );
         }
 
     } catch (error) {
@@ -47,13 +44,15 @@ const getPage = async (req, res) => {
 }
 
 const getID = async (req, res) => {
-    console.log(req.params.id)
+
+    const { id } = req.params;
     try {
-        // const postsdata = await payModel.getPay();
-        // const postRow = await postDto.singles(postsdata)
+        const paydata = await payModel.getPayID(id);
+        const payRow = await paytDto.estructureID(paydata)
+        console.log(paydata, "esto trae")
         res.status(200).json(
             {
-                // data: postRow,
+                payRow,
                 status: 200
             }
         );
@@ -140,7 +139,8 @@ const save = async (req, res) => {
 
 
 const deletes = async (req, res) => {
-    const id = parseInt(req.params.id);
+    const { id } = req.params;
+    console.log(req.params.id)
 
     try {
         const dataPay = await payModel.deletePay(id);
@@ -150,7 +150,7 @@ const deletes = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
+        //     console.log(error)
 
     }
 

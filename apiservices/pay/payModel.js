@@ -8,10 +8,12 @@ const getPay = async (data) => {
   return payGet
 }
 
-// const getIdPost = async (id_user) => {
-//   const postsget = await postsDao.getPost(id_user)
-//   return posts
-// }
+const getPayID = async (data) => {
+  const payGet = await payDao.getPayID(data)
+  return payGet
+}
+
+
 
 
 
@@ -32,12 +34,13 @@ const savePay = async (resource) => {
 
 const deletePay = async (resource) => {
 
-  const pay = await payDao.deletePay(resource)
+   const pay = await payDao.deletePay(resource)
 
 }
 
 module.exports = {
   getPay,
+  getPayID,
   savePay,
   deletePay
 }

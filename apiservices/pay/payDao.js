@@ -1,30 +1,74 @@
 const pool = require('../../config/database');
 const uuid = require('uuid').v4
 
-const getPayAll = async (page) => {
-    try {
-        let response;
+const getPayAll = async (datas) => {
+    console.log(datas, "esto llega")
+    const dataInt = parseInt(datas.page)
+    console.log(dataInt)
 
-        if (page == 1) {
-            console.log("no es cero")
+
+    if (dataInt === 1) {
+        console.log("tra esto")
+        try {
             const response = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange limit 100 offset 0;`);
             data = response.rows
+            console.log(data)
             return data
-        } else {
-            console.log("cero")
+        } catch (error) {
+            console.log(error)
+        }
+
+    } else {
+        try {
             const response = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange limit 100 offset 100;`);
             data = response.rows
+            console.log(data)
             return data
+        } catch (error) {
+            console.log(error)
         }
-    } catch (error) {
-        console.log(error)
     }
+
+
+
+    const getPayID = async (id_user) => {
+        // console.log(id_user)
+        try {
+            const response = await pool.query(`select * from public.payments  WHERE id = ${id}`);
+            user = response.rows
+            return user
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+
+
+
+    // try {
+    //     const response = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange limit 100 offset 0;`);
+    //     data = response.rows
+    //     console.log(data)
+    //     return data
+    //     // if (dataInt=1) {
+    //     //     data = response.rows
+    //     //     return data
+    //     // } else {
+    //     //     console.log("cero")
+    //     //     const response = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange limit 100 offset 100;`);
+    //     //     data = response.rows
+    //     //     return data
+    //     // }
+    // } catch (error) {
+    //     console.log(error)
+    // }
 }
 
-const getIdPay = async (id_user) => {
-    // console.log(id_user)
+const getPayID = async (id) => {
+    const data = id
+    console.log(data, "retorna")
     try {
-        const response = await pool.query(`select * from public.payments  WHERE id = ${id}`);
+        const response = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange where payments.id='${id}'`);
         user = response.rows
         return user
     } catch (error) {
@@ -85,11 +129,13 @@ const savePay = async (resource) => {
 }
 
 const deletePay = async (data) => {
+    const d = `${data}`
 
     try {
-        const response = await pool.query(`DELETE FROM public.paymentsWHERE id = "${data}"`);
-        post = response.rows
-        return post
+        const responses = await pool.query(`delete  from payments where id in (select id_exchange from payments_exchange where id_exchange='${d}')`);
+        const resp = responses.rows
+        return resp
+
     } catch (error) {
         console.log(error)
     }
@@ -100,7 +146,7 @@ const deletePay = async (data) => {
 
 module.exports = {
     getPayAll,
-    getIdPay,
+    getPayID,
     savePay,
     deletePay
 

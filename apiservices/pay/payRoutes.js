@@ -4,7 +4,7 @@ const router = express.Router();
 
 const pay = require('../pay/payController');
 
-router.get('/payments/', pay.getID);
+router.get('/payments/:id', pay.getID);
 router.post('/payments', pay.getPage);
 router.post('/payments', pay.save);
 router.delete('/payments/:id', pay.deletes);
