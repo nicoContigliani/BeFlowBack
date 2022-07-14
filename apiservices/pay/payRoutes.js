@@ -6,7 +6,7 @@ const pay = require('../pay/payController');
 
 router.get('/payments/:id', pay.getID);
 router.post('/payments', pay.getPage);
-router.post('/payments', pay.save);
+router.post('/paymentss', pay.save);
 router.delete('/payments/:id', pay.deletes);
 
 // // router.get('/:id', posts.get);

@@ -72,19 +72,19 @@ const estructure = async (resource) => {
 
 
 
-
+    console.log(resultado, "esto estaría volviendo")
 
     return resultado
   }
   )
 
-  return resource
+  return resultado
 }
 
 
 
 const estructureID = async (resource) => {
-const { id, object, description, billed_hours, billed_at, amount, currency, original_amount, exchange_rate, created_at, updated_at } =resource[0];
+  const { id, object, description, billed_hours, billed_at, amount, currency, original_amount, exchange_rate, created_at, updated_at } = resource[0];
   const resultado = []
 
   resultado.push(
@@ -107,7 +107,7 @@ const { id, object, description, billed_hours, billed_at, amount, currency, orig
 
   )
 
-console.log(resultado,"esta es la respuesta")
+  console.log(resultado, "esta es la respuesta")
   return resultado
 }
 

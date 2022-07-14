@@ -44,24 +44,6 @@ const getPayAll = async (datas) => {
     }
 
 
-
-    // try {
-    //     const response = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange limit 100 offset 0;`);
-    //     data = response.rows
-    //     console.log(data)
-    //     return data
-    //     // if (dataInt=1) {
-    //     //     data = response.rows
-    //     //     return data
-    //     // } else {
-    //     //     console.log("cero")
-    //     //     const response = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange limit 100 offset 100;`);
-    //     //     data = response.rows
-    //     //     return data
-    //     // }
-    // } catch (error) {
-    //     console.log(error)
-    // }
 }
 
 const getPayID = async (id) => {
@@ -80,9 +62,12 @@ const getPayID = async (id) => {
 const savePay = async (resource) => {
     const id = uuid()
     const { valor, fecha } = resource.resultado
-    const { object, description, billed_at, billed_hours, amount, currency, created_at, updated_at } = resource.resource;
+    const { object, description, billed_at, billed_hours, amount, currency="clf", created_at=new Date(), updated_at=new Date() } = resource.resource;
     console.log(resource, "esto me llega a dao pay")
+ 
 
+
+    
     try {
         if (description === "Pago" || needs_exchange === true) {
             console.log("si entro")

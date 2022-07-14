@@ -12,6 +12,7 @@ const getPage = async (req, res) => {
     try {
         const dataPay = await payModel.getPay(req.body);
         const payRow = await paytDto.estructure(dataPay)
+        console.log(payRow,"como puedese ser")
 
         if (Object.keys(dataPay).length === 0) {
             res.status(200).json(
@@ -49,7 +50,6 @@ const getID = async (req, res) => {
     try {
         const paydata = await payModel.getPayID(id);
         const payRow = await paytDto.estructureID(paydata)
-        console.log(paydata, "esto trae")
         res.status(200).json(
             {
                 payRow,
@@ -106,54 +106,18 @@ const save = async (req, res) => {
             }
         );
     }
-
-    // try {
-    //     console.log(req.body)
-
-    //     //  console.log(re)
-
-
-
-    //     // const id_user = parseInt(req.body.id_user)
-    //     // const postsdata = await postsModel.getPost();
-    //     // const postRow = await postDto.singles(postsdata)
-
-    //     res.status(200).json(
-    //         {
-    //             data: postRow,
-    //             status: 200
-    //         }
-    //     );
-
-    // } catch (error) {
-    //     res.status(400).json(
-    //         {
-    //             data: 0,
-    //             status: 400
-    //         }
-    //     );
-    // }
-
-
 }
 
 
 const deletes = async (req, res) => {
     const { id } = req.params;
-    console.log(req.params.id)
-
     try {
         const dataPay = await payModel.deletePay(id);
         res.status(200).json(
             { "message": "payment sucessfully deleted" }
         );
-
-
     } catch (error) {
-        //     console.log(error)
-
     }
-
 }
 module.exports = {
     getPage,
