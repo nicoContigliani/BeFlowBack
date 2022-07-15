@@ -40,7 +40,7 @@ const deletePay = async (resource) => {
 const updatePay = async (resource) => {
 
    const pay = await payDao.updatePay(resource)
-   console.log(pay,"esto llega a pay")
+  //  console.log(pay,"esto llega a pay que divertido")
 }
 
 

@@ -123,31 +123,32 @@ const deletes = async (req, res) => {
 
 const update = async (req, res) => {
     const { description, billed_hours, billet_at, billing_currency, billed_amount, needs_exchange, exchange_currency, created_at, updated_at } = req.body;
-    const id = req.params.id;
+    const ids = req.params.id;
     const body = req.body;
-
+    const paydata = await payModel.getPayID(ids);
     try {
         let resultado;
         if (description === 'Pago' || needs_exchange === true) {
             const resultado = await helperAxiosGet(req.body)
 
-            const everything = { ...body,...resultado, id }
-            const posts = await payModel.updatePay(everything);
+            const everything = { ...body, ...resultado,...paydata ,ids }
+            const pay = await payModel.updatePay(everything);
 
 
             res.status(200).json(
                 {
-                    data: 0,
                     status: 200
                 }
             );
         } else {
+
             const data = {
-                resource,
+                ...body,
                 id
             }
-
-            const paySave = await payModel.updatePay(data);
+    
+            const everything = { ...body, ids }
+            const pay = await payModel.updatePay(everything);
             res.status(200).json(
                 {
                     data: 0,

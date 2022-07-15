@@ -107,6 +107,56 @@ const deletePay = async (data) => {
 
 const updatePay = async (everything) => {
     console.log(everything, "esto llega a dao")
+    const { ids,description,billed_at,billed_hours,needs_exchange,valor,updated_at=new Date() } = everything
+    const amount =1;
+    const currency = 'clf';
+    // const create_at = "fecha alguna"
+    // const updated_at = "fehca de actualizacion"
+    // const id_exchange = id
+    // const original_amount=1
+    // const exchange_rate=11111111
+    
+    try 
+    {
+
+        
+        if (description === "Pago" || needs_exchange === true) {
+            
+            // const id_exchange = id
+            const valors = parseInt(valor)
+            const amount = parseInt(billed_at) * parseInt(valor)
+            const exchangeexchange_rate = valors
+            const exchangecurrency = currency
+            const original_amount = billed_hours
+            const exchange_rate = valors
+    
+            const responses = await pool.query(`UPDATE public.payments SET  description='${description}', billed_at='${billed_at}', billed_hours=${billed_hours}, amount=${amount}, currency='${currency}' , updated_at='${updated_at}' WHERE id='${ids}'`);
+            const respo = await pool.query(`UPDATE public.payments_exchange SET  original_amount=${original_amount}, currency='${currency}', exchange_rate=${exchange_rate} where id_exchange  ='${ids}';`);
+            
+            console.log("entro toda")
+        }else{
+
+            // const responses = await pool.query(`UPDATE public.payments SET  description='${description}', billed_at='${billed_at}', billed_hours=${billed_hours}, amount=${amount}, currency='${currency}', created_at='${create_at}', updated_at='${updated_at}' WHERE id='${id}'`);
+            // const respo = await pool.query(`UPDATE public.payments_exchange SET  original_amount=${original_amount}, currency='${currency}', exchange_rate=${exchange_rate} where id_exchange  ='${id_exchange}';`);
+
+
+       
+       
+            console.log("no entro")
+        }
+
+
+
+
+
+    } catch (error) {
+        console.log(error)
+    }
+
+
+
+
+
 
     // const { id, description, billed_hours, billed_at, billing_currency, billed_amount, needs_exchange, exchange_currency } = body
     // const { fecha, valor } = resultado
