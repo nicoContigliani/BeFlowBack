@@ -20,5 +20,8 @@ app.use('/', routes);
 // app.get('/api', function (req, res, next) {
 //     res.send('live!!!');
 // });
+app.get("/pay", (req, res) => {
+    res.status(200).json(tasks);
+  });
 
 module.exports = app;
