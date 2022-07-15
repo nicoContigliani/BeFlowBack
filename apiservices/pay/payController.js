@@ -12,7 +12,7 @@ const getPage = async (req, res) => {
     try {
         const dataPay = await payModel.getPay(req.body);
         const payRow = await paytDto.estructure(dataPay)
-        console.log(payRow,"como puedese ser")
+        console.log(payRow, "como puedese ser")
 
         if (Object.keys(dataPay).length === 0) {
             res.status(200).json(
@@ -27,7 +27,7 @@ const getPage = async (req, res) => {
                     payRow,
                     status: 200
 
-                } ]
+                }]
 
             );
         }
@@ -119,9 +119,95 @@ const deletes = async (req, res) => {
     } catch (error) {
     }
 }
+
+
+const update = async (req, res) => {
+    const { description, billed_hours, billet_at, billing_currency, billed_amount, needs_exchange, exchange_currency, created_at, updated_at } = req.body;
+    const id = req.params.id;
+    const body = req.body;
+
+    try {
+        let resultado;
+        if (description === 'Pago' || needs_exchange === true) {
+            const resultado = await helperAxiosGet(req.body)
+
+            const everything = { ...body,...resultado, id }
+            const posts = await payModel.updatePay(everything);
+
+
+            res.status(200).json(
+                {
+                    data: 0,
+                    status: 200
+                }
+            );
+        } else {
+            const data = {
+                resource,
+                id
+            }
+
+            const paySave = await payModel.updatePay(data);
+            res.status(200).json(
+                {
+                    data: 0,
+                    status: 200
+                }
+            );
+        }
+    } catch (error) {
+        res.status(400).json(
+            {
+                data: 0,
+                status: 400
+            }
+        );
+    }
+
+
+
+    //*************************** */
+
+    // try {
+    //     const id = req.params.id;
+    //     const body = req.body;
+
+    //     console.log(id, "esto esta para attualizar", body)
+
+    //     const element = body;
+    //     const everything = { ...element, id }
+    //     const posts = await payModel.updatePay(everything);
+
+    //     // const postsdata = await postsModel.getPost();
+    //     // const postRow = await postDto.singles(postsdata)
+    //     res.status(200).json(
+    //         {
+    //             data: postRow,
+    //             status: 200
+    //         }
+    //     );
+    // } catch (error) {
+    //     res.status(400).json(
+    //         {
+    //             data: 0,
+    //             status: 400
+    //         }
+    //     );
+    // }
+}
+
+
+
+
+
+
+
+
+
 module.exports = {
     getPage,
     save,
     deletes,
-    getID
+    getID,
+    update
 }

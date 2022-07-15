@@ -37,10 +37,17 @@ const deletePay = async (resource) => {
    const pay = await payDao.deletePay(resource)
 
 }
+const updatePay = async (resource) => {
+
+   const pay = await payDao.updatePay(resource)
+   console.log(pay,"esto llega a pay")
+}
+
 
 module.exports = {
   getPay,
   getPayID,
   savePay,
-  deletePay
+  deletePay,
+  updatePay
 }

@@ -62,12 +62,9 @@ const getPayID = async (id) => {
 const savePay = async (resource) => {
     const id = uuid()
     const { valor, fecha } = resource.resultado
-    const { object, description, billed_at, billed_hours, amount, currency="clf", created_at=new Date(), updated_at=new Date() } = resource.resource;
+    const { object, description, billed_at, billed_hours, amount, currency = "clf", created_at = new Date(), updated_at = new Date() } = resource.resource;
     console.log(resource, "esto me llega a dao pay")
- 
 
-
-    
     try {
         if (description === "Pago" || needs_exchange === true) {
             console.log("si entro")
@@ -78,6 +75,7 @@ const savePay = async (resource) => {
             const exchangecurrency = currency
             const original_amount = billed_hours
             const exchange_rate = valors
+
             const response = await pool.query(`INSERT INTO public.payments (id, "object", description, billed_at, billed_hours, amount, currency, created_at, updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`, [id, object, description, billed_at, billed_hours, amount, currency, created_at, updated_at]);
 
             const sec = await pool.query(` INSERT INTO public.payments_exchange (id_exchange, original_amount, currency, exchange_rate) VALUES ($1,$2,$3,$4)`, [id_exchange, original_amount, currency, exchange_rate]);
@@ -92,25 +90,6 @@ const savePay = async (resource) => {
     } catch (error) {
         console.log(error)
     }
-
-
-    // try {
-    //     const response = await pool.query(`INSERT INTO public.payments (id, description, billed_hours, billet_at, billing_currency, billed_amount, needs_exchange, exchange_currency, created_at, updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`, [id, object, description, billed_at, billed_hours, amount, currency, exchangeoriginal_amount, exchangecurrency, exchangeexchange_rate, created_at = new Date(), updated_at]);
-    // } catch (error) {
-
-    // }
-    // try {
-    //     // 
-    //     // if (description === "Pago" || needs_exchange === true){
-    //     //     const response = await pool.query(` INSERT INTO public.payments_exchange (id_exchange, original_amount, currenci, exchange_rate) VALUES ($1,$2,$3,$4)`, [id_exchange, original_amount, currenci, exchange_rate]);
-    //     // }
-
-    //         posts = response.rows
-    //         return posts
-    //     } catch (error) {
-    //         console.log(error)
-
-    //     }
 }
 
 const deletePay = async (data) => {
@@ -126,13 +105,52 @@ const deletePay = async (data) => {
     }
 }
 
+const updatePay = async (everything) => {
+    console.log(everything, "esto llega a dao")
 
+    // const { id, description, billed_hours, billed_at, billing_currency, billed_amount, needs_exchange, exchange_currency } = body
+    // const { fecha, valor } = resultado
+    // const { amount, currency = "clf", created_at = new Date(), updated_at = new Date() } = resource;
+    // const reP = await pool.query(`SELECT * FROM payments INNER JOIN  payments_exchange pe ON payments.id = pe.id_exchange where payments.id='${body.id}'`);
+    // console.log(reP, "eesto viene del select")
+
+
+    // try {
+    //     if (description === "Pago" || needs_exchange === true) {
+    //         console.log("si entro")
+    //         const id_exchange = id
+    //         const valors = parseInt(valor)
+    //         const amount = parseInt(billed_at) * parseInt(valor)
+    //         const exchangeexchange_rate = valors
+    //         const exchangecurrency = currency
+    //         const original_amount = billed_hours
+    //         const exchange_rate = valors
+
+    //         // const responses = await pool.query(` UPDATE public.payments SET  "object"=${object}, description=${description}, billed_at=${billed_at}, billed_hours=${billed_hours}, amount=${amount}, currency=${currency}, created_at=${created_at}, updated_at=${updated_at} where id ='${id}'`);
+    //         // const resp = await pool.query(`UPDATE public.payments_exchange SET  original_amount=${original_amount}, currency=${currency}, exchange_rate=${exchange_rate} where id_exchange='${id_exchange}'; `)
+
+
+
+    //     } else {
+    //         const response = await pool.query(`INSERT INTO public.payments (id, "object", description, billed_at, billed_hours, amount, currency, created_at, updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`, [id, object, description, billed_at, billed_hours, amount, currency, created_at, updated_at]);
+    //         const ress = await pool.query(` INSERT INTO public.payments_exchange (id_exchange, exchangeoriginal_amount, exchangecurrency, exchangeexchange_rate) VALUES ($1,$2,$3,$4)`, [id_exchange = id, exchangeoriginal_amount = billed_hours, exchangecurrency = currency, exchangeexchange_rate = valor]);
+    //         console.log("no entro")
+
+    //     }
+    // } catch (error) {
+    //     console.log(error)
+    // }
+
+
+
+}
 
 
 module.exports = {
     getPayAll,
     getPayID,
     savePay,
-    deletePay
+    deletePay,
+    updatePay
 
 }

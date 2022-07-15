@@ -15,13 +15,8 @@ const helperAxiosGet = async (data) => {
 
     const repuesta = await axios.get(`https://mindicador.cl/api/uf/${fechas}`)
     const { fecha, valor } = repuesta.data.serie[0]
-    //     const r = { valor, fecha }
-    //     console.log(r)
-    //     re.push(r)
-
 
     const dataApi = { fecha, valor }
-    console.log(dataApi, "esto esta en helper")
     return dataApi
 }
 
