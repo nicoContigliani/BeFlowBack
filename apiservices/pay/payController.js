@@ -126,32 +126,25 @@ const update = async (req, res) => {
     const ids = req.params.id;
     const body = req.body;
     const paydata = await payModel.getPayID(ids);
+
     try {
-        let resultado;
+        
         if (description === 'Pago' || needs_exchange === true) {
             const resultado = await helperAxiosGet(req.body)
-
-            const everything = { ...body, ...resultado,...paydata ,ids }
+    
+            const everything = { ...body, ...resultado, ...paydata, ids }
             const pay = await payModel.updatePay(everything);
-
-
+    
             res.status(200).json(
                 {
                     status: 200
                 }
             );
         } else {
-
-            const data = {
-                ...body,
-                id
-            }
-    
             const everything = { ...body, ids }
             const pay = await payModel.updatePay(everything);
             res.status(200).json(
                 {
-                    data: 0,
                     status: 200
                 }
             );
@@ -159,11 +152,49 @@ const update = async (req, res) => {
     } catch (error) {
         res.status(400).json(
             {
-                data: 0,
                 status: 400
             }
         );
-    }
+     }
+
+    // try {
+    //     let resultado;
+    //     if (description === 'Pago' || needs_exchange === true) {
+    //         const resultado = await helperAxiosGet(req.body)
+
+    //         const everything = { ...body, ...resultado,...paydata ,ids }
+    //         const pay = await payModel.updatePay(everything);
+
+
+    //         res.status(200).json(
+    //             {
+    //                 status: 200
+    //             }
+    //         );
+    //     } else {
+
+    //         const data = {
+    //             ...body,
+    //             id
+    //         }
+
+    //         const everything = { ...body, ids }
+    //         const pay = await payModel.updatePay(everything);
+    //         res.status(200).json(
+    //             {
+    //                 data: 0,
+    //                 status: 200
+    //             }
+    //         );
+    //     }
+    // } catch (error) {
+    //     res.status(400).json(
+    //         {
+    //             data: 0,
+    //             status: 400
+    //         }
+    //     );
+    // }
 
 
 
