@@ -5,11 +5,13 @@
 
 const getPay = async (data) => {
   const payGet = await payDao.getPayAll(data)
+  console.log(payGet,"esto es nuevo")
   return payGet
 }
 
 const getPayID = async (data) => {
   const payGet = await payDao.getPayID(data)
+
   return payGet
 }
 

@@ -1,6 +1,7 @@
 const pool = require('../../config/database');
 const uuid = require('uuid').v4
 
+
 const getPayAll = async (datas) => {
     console.log(datas, "esto llega")
     const dataInt = parseInt(datas.page)
@@ -76,12 +77,17 @@ const savePay = async (resource) => {
             const original_amount = billed_hours
             const exchange_rate = valors
 
+
+
             const response = await pool.query(`INSERT INTO public.payments (id, "object", description, billed_at, billed_hours, amount, currency, created_at, updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`, [id, object, description, billed_at, billed_hours, amount, currency, created_at, updated_at]);
 
             const sec = await pool.query(` INSERT INTO public.payments_exchange (id_exchange, original_amount, currency, exchange_rate) VALUES ($1,$2,$3,$4)`, [id_exchange, original_amount, currency, exchange_rate]);
 
 
         } else {
+
+   
+
             console.log("no entro")
             const response = await pool.query(`INSERT INTO public.payments (id, "object", description, billed_at, billed_hours, amount, currency, created_at, updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`, [id, object, description, billed_at, billed_hours, amount, currency, created_at, updated_at]);
             const ress = await pool.query(` INSERT INTO public.payments_exchange (id_exchange, exchangeoriginal_amount, exchangecurrency, exchangeexchange_rate) VALUES ($1,$2,$3,$4)`, [id_exchange = id, exchangeoriginal_amount = billed_hours, exchangecurrency = currency, exchangeexchange_rate = valor]);
@@ -107,7 +113,7 @@ const deletePay = async (data) => {
 
 const updatePay = async (everything) => {
     console.log(everything, "esto llega a dao")
-    const { ids,description,billed_at,billed_hours,needs_exchange,valor,updated_at=new Date() } = everything
+    const { ids,description,billed_at,billed_hours,needs_exchange,valor} = everything
     const amount =1;
     const currency = 'clf';
     // const create_at = "fecha alguna"
@@ -129,8 +135,17 @@ const updatePay = async (everything) => {
             const exchangecurrency = currency
             const original_amount = billed_hours
             const exchange_rate = valors
+
+            const update_at=new Date();
+            let day = update_at.getDate()
+            let month = update_at.getMonth() + 1
+            let year = update_at.getFullYear()
+            let update_at_format  = `${day}-${month}-${year}`
+
+
+
     
-            const responses = await pool.query(`UPDATE public.payments SET  description='${description}', billed_at='${billed_at}', billed_hours=${billed_hours}, amount=${amount}, currency='${currency}' , updated_at='${updated_at}' WHERE id='${ids}'`);
+            const responses = await pool.query(`UPDATE public.payments SET  description='${description}', billed_at='${billed_at}', billed_hours=${billed_hours}, amount=${amount}, currency='${currency}' , updated_at='${update_at_format}' WHERE id='${ids}'`);
             const respo = await pool.query(`UPDATE public.payments_exchange SET  original_amount=${original_amount}, currency='${currency}', exchange_rate=${exchange_rate} where id_exchange  ='${ids}';`);
             
             console.log("entro toda")

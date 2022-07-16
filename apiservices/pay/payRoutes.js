@@ -4,6 +4,14 @@ const router = express.Router();
 
 const pay = require('../pay/payController');
 
+
+// /* GET bugdes listing. */
+//  router.put('/payments/:id', function (req, res, next) {
+//      res.send('llego!!!');
+//  });
+
+
+
 router.get('/payments/:id', pay.getID);
 router.post('/payments', pay.getPage);
 router.post('/paymentss', pay.save);
@@ -22,10 +30,7 @@ router.put('/payments/:id', pay.update);
 
 
 
-/* GET bugdes listing. */
-//  router.put('/payments/:id', function (req, res, next) {
-//      res.send('llego!!!');
-//  });
+
 
 
 module.exports = router;
