@@ -12,7 +12,7 @@ const getPage = async (req, res) => {
     try {
         const dataPay = await payModel.getPay(req.body);
         const payRow = await paytDto.estructure(dataPay)
-        console.log(payRow, "como puedese ser")
+        console.log(payRow, "como puedese ser***********************************************")
 
         if (Object.keys(dataPay).length === 0) {
             res.status(200).json(

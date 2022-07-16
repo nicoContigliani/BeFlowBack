@@ -1,3 +1,5 @@
+const { formatDate } = require("../../helper/formatData");
+
 const single = (resource, authUser) => (
   {
     id_user: resource.id_user,
@@ -46,9 +48,12 @@ const estructure = async (resource) => {
 
   const resultado = []
 
-  const rest = await resource.map((item) => {
-    console.log(item, "trae")
+  const rest = await resource.map(async (item) => {
+
     const { id, object, description, billed_hours, billed_at, amount, currency, original_amount, exchange_rate, created_at, updated_at } = item;
+
+    const fecha = await formatDate(billed_at)
+    
 
     resultado.push(
       {
@@ -56,7 +61,7 @@ const estructure = async (resource) => {
         object: object,
         description: description,
         billed_hours: billed_hours,
-        billed_at: billed_at,
+        billed_at: `${fecha}`,
         amount: amount,
         currency: currency,
         exchange: {
@@ -84,8 +89,14 @@ const estructure = async (resource) => {
 
 
 const estructureID = async (resource) => {
+  console.log(resource,"esto en dto")
   const { id, object, description, billed_hours, billed_at, amount, currency, original_amount, exchange_rate, created_at, updated_at } = resource[0];
   const resultado = []
+
+  const re = await formatDate(billed_at)
+  const creates = await formatDate(created_at)
+  const updates = await formatDate(updated_at)
+
 
   resultado.push(
     {
@@ -93,7 +104,7 @@ const estructureID = async (resource) => {
       object: object,
       description: description,
       billed_hours: billed_hours,
-      billed_at: billed_at,
+      billed_at: re,
       amount: amount,
       currency: currency,
       exchange: {
@@ -101,8 +112,8 @@ const estructureID = async (resource) => {
         currency: "clf",
         exchange_rate: exchange_rate
       },
-      created_at: created_at,
-      updated_at: updated_at
+      created_at: creates,
+      updated_at: updates
     }
 
   )

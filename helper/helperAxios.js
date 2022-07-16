@@ -1,4 +1,5 @@
 const axios = require('axios');
+const {formatDate}= require('./formatData')
 
 const helperAxiosGet = async (data) => {
     const { description, billed_hours, billet_at, billing_currency, billed_amount, needs_exchange, exchange_currency, created_at, updated_at } = data;
@@ -15,8 +16,9 @@ const helperAxiosGet = async (data) => {
 
     const repuesta = await axios.get(`https://mindicador.cl/api/uf/${fechas}`)
     const { fecha, valor } = repuesta.data.serie[0]
+    const fechA = formatDate(fecha)
 
-    const dataApi = { fecha, valor }
+    const dataApi = { fecha:fechA, valor }
     return dataApi
 }
 
